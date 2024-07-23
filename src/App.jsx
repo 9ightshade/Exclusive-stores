@@ -1,9 +1,10 @@
 import React from 'react'
+import NotesPage from './Pages/NotesPage'
 
 const App = () => {
   return (
-    <div>
-      My app
+    <div id='app' >
+      <NotesPage />
     </div>
   )
 }
