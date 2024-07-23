@@ -1,9 +1,14 @@
 import React from 'react'
+import NoteCard from '../Components/NoteCard'
 
 const NotesPage = () => {
   return (
     <div>
-      Notes Page
+      {
+        notes.map((note) => {
+          <NoteCard note={note} key={note.$id}/>
+        })
+      }
     </div>
   )
 }
