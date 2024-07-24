@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Trash from '../icons/Trash';
-import { setNewOffset,autoGrow, setZindex, bodyParser } from '../utils';
+import { setNewOffset, autoGrow, setZindex, bodyParser } from '../utils';
 const NoteCard = ({ note }) => {
   // let position = JSON.parse(note.position); // this made position static
 
   const [position, setPosition] = useState(JSON.parse(note.position)) // makes position dynamic
+
+  const [saving, setSaving] = useState(false); //saving with timer
+  const keyUpTimer = useRef(null);
 
   let mouseStartPos = { x: 0, y: 0 };
   const cardRef = useRef(null);
@@ -49,6 +52,10 @@ const NoteCard = ({ note }) => {
   const mouseUp = () => {
     document.removeEventListener("mousemove", mouseMove);
     document.removeEventListener("mouseup", mouseUp)
+
+    const newPosition = setNewOffset(cardRef.current);
+    saveData("position", newPosition);
+
   };
 
 
@@ -58,12 +65,39 @@ const NoteCard = ({ note }) => {
   // useref to auto grow the textarea
   const textAreaRef = useRef(null);
 
+  //save data
+  const saveData = async (key, value) => {
+    const payload = { [key]: JSON.stringify(value) };
+    console.log("Save data called:", payload);
+    try {
+      await db.notes.update(note.$id, payload);
+    } catch (error) {
+      console.error(error);
+    }
+    setSaving(false);
+  };
+
+
 
 
 
   useEffect(() => {
     autoGrow(textAreaRef);
   }, []);
+
+
+  //function handles note save on key up with timer
+  const handleKeyUp = async () => {
+    setSaving(true);
+    if (keyUpTimer.current) {
+      clearTimeout(keyUpTimer.current);
+    }
+
+    keyUpTimer.current = setTimeout(() => {
+      console.log("Timer started");
+      saveData("body", textAreaRef.current.value);
+    }, 2000);
+  };
 
 
   return (
@@ -85,13 +119,22 @@ const NoteCard = ({ note }) => {
           backgroundColor: colors.colorHeader
         }} >
         {
-          <Trash />
+          saving && (
+            <div className="card-saving">
+              <Spinner color={colors.colorText} />
+              <span style={{ color: colors.colorText }}>
+                Saving...
+              </span>
+            </div>
+          )
+        
         }
       </div>
 
 
       <div className='card-body' >
         <textarea
+          onKeyUp={handleKeyUp}
           onFocus={() => {
             setZindex(cardRef.current)
           }}
