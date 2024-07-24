@@ -1,11 +1,10 @@
 // import { fakeData as notes } from "../assets/fakeData.js";
 // import { db } from "../appwrite/databases";
-// import NoteCard from "../components/NoteCard";
+import NoteCard from "../Components/NoteCard";
 import { useState, useEffect } from "react";
 import Controls from "../components/Controls";
 import { useContext } from "react";
 import { NotesContext } from "../context/NotesContext";
-import NoteCard from "../Components/NoteCard";
 
 const NotesPage = () => {
   const { notes } = useContext(NotesContext);
