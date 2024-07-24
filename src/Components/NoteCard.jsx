@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Trash from '../icons/Trash';
-import { setNewOffset,autoGrow, setZindex } from '../utils';
+import { setNewOffset,autoGrow, setZindex, bodyParser } from '../utils';
 const NoteCard = ({ note }) => {
   // let position = JSON.parse(note.position); // this made position static
 
@@ -53,7 +53,7 @@ const NoteCard = ({ note }) => {
 
 
   const colors = JSON.parse(note.colors);
-  const body = JSON.parse(note.body);
+  const body = bodyParser(note.body);
 
   // useref to auto grow the textarea
   const textAreaRef = useRef(null);

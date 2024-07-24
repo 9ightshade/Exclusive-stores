@@ -29,4 +29,16 @@ export const setZindex = (selectedCard) => {
       card.style.zIndex = selectedCard.style.zIndex - 1;
     }
   })
-  }
+}
+  
+
+
+//function to ensure our parse body data is a valid JSON data
+export function bodyParser(value) {
+    try {
+        JSON.parse(value);
+        return JSON.parse(value);
+    } catch (error) {
+        return value;
+    }
+}
