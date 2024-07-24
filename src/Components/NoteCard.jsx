@@ -3,7 +3,7 @@ import Trash from "../icons/Trash";
 import { setNewOffset, autoGrow, setZIndex, bodyParser } from "../utils";
 import { db } from "../appwrite/databases";
 import Spinner from "../icons/Spinner";
-import DeleteButton from "../Components/DeleteButton";
+import DeleteButton from "./DeleteButton";
 import { useContext } from "react";
 import { NotesContext } from "../context/NotesContext";
 

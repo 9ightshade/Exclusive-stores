@@ -2,7 +2,7 @@
 // import { db } from "../appwrite/databases";
 import NoteCard from "../Components/NoteCard";
 import { useState, useEffect } from "react";
-import Controls from "../components/Controls";
+import Controls from "../Components/Controls";
 import { useContext } from "react";
 import { NotesContext } from "../context/NotesContext";
 

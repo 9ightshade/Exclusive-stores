@@ -21,7 +21,7 @@ export  function autoGrow(textAreaRef) {
 
 
 //active card should always be in front
-export const setZindex = (selectedCard) => {
+export const setZIndex = (selectedCard) => {
   selectedCard.style.zIndex = 999;
 
   Array.from(document.getElementsByClassName("card")).forEach((card) => {
