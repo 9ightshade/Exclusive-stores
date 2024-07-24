@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Trash from '../icons/Trash';
 import { setNewOffset, autoGrow, setZindex, bodyParser } from '../utils';
+import DeleteButton from './DeleteButton';
 const NoteCard = ({ note }) => {
   // let position = JSON.parse(note.position); // this made position static
 
@@ -118,6 +119,7 @@ const NoteCard = ({ note }) => {
         style={{
           backgroundColor: colors.colorHeader
         }} >
+        <DeleteButton noteId={note.$id} />
         {
           saving && (
             <div className="card-saving">
