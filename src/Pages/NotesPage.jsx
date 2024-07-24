@@ -3,7 +3,7 @@ import NoteCard from '../Components/NoteCard'
 import { fakeData as notes } from "../assets/fakeData.js";
 const NotesPage = () => {
   
-  console.log(notes);
+  // console.log(notes);
   return (
     <div>
       {

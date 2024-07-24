@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Trash from '../icons/Trash';
+import { setNewOffset,autoGrow, setZindex } from '../utils';
 const NoteCard = ({ note }) => {
   // let position = JSON.parse(note.position); // this made position static
 
@@ -16,6 +17,10 @@ const NoteCard = ({ note }) => {
       y: mouseStartPos.y - e.clientY
     };
 
+
+    // mouseStartPos.x = e.clientX;
+    // mouseStartPos.y = e.clientY
+
     // update start position for next move
     mouseStartPos.x = e.clientX;
     mouseStartPos.y = e.clientY;
@@ -27,12 +32,13 @@ const NoteCard = ({ note }) => {
         y: cardRef.current.offsetTop - mouseMoveDir.y,
       }
     );
-}
+  }
 
 
 
   // mouse move event and update
   const mouseDown = (e) => {
+    setZindex(cardRef.current);
     mouseStartPos.x = e.clientX;
     mouseStartPos.y = e.clientY;
 
@@ -52,12 +58,6 @@ const NoteCard = ({ note }) => {
   // useref to auto grow the textarea
   const textAreaRef = useRef(null);
 
-  // function to grow textarea
-  function autoGrow(textAreaRef) {
-    const { current } = textAreaRef;
-    current.style.height = "auto"; // reset height
-    current.style.height = current.scrollHeight + "px"; // set new height
-  };
 
 
 
@@ -71,39 +71,42 @@ const NoteCard = ({ note }) => {
       className='card'
       ref={cardRef}
       style={{
-      backgroundColor: colors.colorBody,
-      left: `${position.x}px`,
-      top:`${position.y}px`
-    }}  >
+        backgroundColor: colors.colorBody,
+        left: `${position.x}px`,
+        top: `${position.y}px`
+      }}  >
       {
         body
       }
 
       <div className='card-header'
-      onMouseDown={mouseDown}
+        onMouseDown={mouseDown}
         style={{
-        backgroundColor:colors.colorHeader
-      }} >
+          backgroundColor: colors.colorHeader
+        }} >
         {
-          <Trash/>
-       } 
-</div>
+          <Trash />
+        }
+      </div>
 
 
-      <div  className='card-body' >
+      <div className='card-body' >
         <textarea
+          onFocus={() => {
+            setZindex(cardRef.current)
+          }}
           onInput={() => {
             autoGrow(textAreaRef);
           }}
           ref={textAreaRef}
           style={{
-          color:colors.colorText
+            color: colors.colorText
           }}
           defaultValue={body}
         >
 
         </textarea>
-</div>
+      </div>
 
     </div>
   )
