@@ -42,14 +42,17 @@ const NoteCard = ({ note }) => {
 
   // mouse move event and update
   const mouseDown = (e) => {
-    setZindex(cardRef.current);
-    mouseStartPos.x = e.clientX;
-    mouseStartPos.y = e.clientY;
+    if (e.target.className === "card-header") {
+      mouseStartPos.x = e.clientX;
+      mouseStartPos.y = e.clientY;
 
-    document.addEventListener("mousemove", mouseMove);
-    document.addEventListener("mouseup", mouseUp);
+      setZIndex(cardRef.current);
+
+      document.addEventListener("mousemove", mouseMove);
+      document.addEventListener("mouseup", mouseUp);
+      setSelectedNote(note);
+    }
   };
-
   const mouseUp = () => {
     document.removeEventListener("mousemove", mouseMove);
     document.removeEventListener("mouseup", mouseUp)

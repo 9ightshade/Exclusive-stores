@@ -1,12 +1,14 @@
-import React from 'react'
-import NotesPage from './Pages/NotesPage'
+import NotesProvider from "./context/NotesContext";
+import NotesPage from "./Pages/NotesPage";
 
-const App = () => {
+function App() {
   return (
-    <div id='app' >
-      <NotesPage />
+    <div id="app">
+      <NotesProvider>
+        <NotesPage/>
+      </NotesProvider>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
